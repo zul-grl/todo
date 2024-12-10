@@ -13,6 +13,7 @@ body {
   display: flex;
   flex-direction: row-reverse;
   margin-bottom: 30px;
+  padding-right: 40px;
 }
 .addTask button {
   width: 120px;
@@ -26,13 +27,13 @@ body {
 
 .taskContainer {
   display: flex;
-  gap: 40px;
-  justify-content: center;
+  gap: 30px;
+  justify-content: space-between;
   padding: 0 40px;
 }
 .taskContainer > div {
-  max-width: 420px;
-  aspect-ratio: 420/900;
+  max-width: 350px;
+  aspect-ratio: 350/800;
   width: 100%;
   background-color: rgb(19, 19, 19);
   border-radius: 15px;
@@ -83,12 +84,12 @@ body {
   display: flex;
   gap: 15px;
   background-color: rgb(25, 25, 25);
-  padding: 15px;
+  padding: 10px;
   border-radius: 10px;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 .listItem p {
-  font-size: 17px;
+  font-size: 15px;
 }
 .title p {
   color: rgb(42, 42, 42);
