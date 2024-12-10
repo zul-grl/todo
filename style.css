@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(24, 24, 24);
+  color: #ffffff;
+  padding: 30px;
+}
+.addTask {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 30px;
+}
+.addTask button {
+  width: 120px;
+  height: 50px;
+  background-color: green;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  font-size: large;
+}
+
+.taskContainer {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 0 40px;
+}
+.taskContainer > div {
+  max-width: 420px;
+  aspect-ratio: 420/900;
+  width: 100%;
+  background-color: rgb(19, 19, 19);
+  border-radius: 15px;
+  border: 2px rgb(39, 39, 39) solid;
+  padding: 20px;
+}
+.taskcontainer {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 0 40px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.title .count {
+  margin-left: auto;
+}
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: white;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+}
+.svg img {
+  width: 17px;
+  height: 17px;
+}
+.svg {
+  display: flex;
+  gap: 15px;
+}
+.listItem {
+  display: flex;
+  gap: 15px;
+  background-color: rgb(25, 25, 25);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+.listItem p {
+  font-size: 17px;
+}
+.title p {
+  color: rgb(42, 42, 42);
+}
