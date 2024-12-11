@@ -9,15 +9,14 @@ body {
   color: #ffffff;
   padding: 30px;
 }
-#addTask {
+#header {
   display: flex;
-  /* flex-direction: row-reverse; */
   justify-content: flex-end;
   gap: 20px;
   margin-bottom: 30px;
   padding-right: 40px;
 }
-#addTask button {
+#header button {
   width: 120px;
   height: 50px;
   background-color: green;
@@ -37,8 +36,6 @@ body {
   max-width: 400px;
   aspect-ratio: 400/800;
   width: 100%;
-  /* width: 20vw;
-  height: 70vh; */
   background-color: rgb(19, 19, 19);
   border-radius: 15px;
   border: 2px rgb(39, 39, 39) solid;

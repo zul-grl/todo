@@ -51,88 +51,61 @@ const containerItems = [
   },
 ];
 
-const todoData = [
-  {
-    text: input.value,
-    pensvg: "./pen.svg",
-    trashsvg: "./trash.svg",
-    state: "todo",
-  },
-  // ,
-  // {
-  //   text: "geree tseverleh",
-  //   pensvg: "./pen.svg",
-  //   trashsvg: "./trash.svg",
-  //   state: "in-progress",
-  // },
-  // ,
-  // {
-  //   text: " ugluu sereh",
-  //   pensvg: "./pen.svg",
-  //   trashsvg: "./trash.svg",
-  //   state: "done",
-  // },
-  // {
-  //   text: "kio uzeh",
-  //   pensvg: "./pen.svg",
-  //   trashsvg: "./trash.svg",
-  //   state: "blocked",
-  // },
-];
+const todoData = [];
 
-const taskdiv = document.getElementById("addTask");
+const taskdiv = document.getElementById("header");
 const input = document.createElement("input");
+input.setAttribute("name", "taskName");
+input.setAttribute("type", "email");
 taskdiv.appendChild(input);
 
 const button = document.createElement("button");
 button.innerText = "Add Task";
+button.setAttribute("id", "addTask");
 taskdiv.appendChild(button);
 
 function addTaskList(title, color, count, id) {
   //html div iig bariad avsan
   const taskContainer2 = document.querySelector("#taskContainer");
-  //todoList = <div class="todoList">
-  //   <div class="title"></div>
-  // </div>
+
   const todoList = document.createElement("div");
   todoList.setAttribute("class", "todoList");
   todoList.setAttribute("id", id);
-  // title = <div class="title"></div>
+
   const titleDiv = document.createElement("div");
   titleDiv.setAttribute("class", "title");
   todoList.appendChild(titleDiv);
-  // <h2>To do</h2>
+
+  const body = document.createElement("div");
+  body.setAttribute("id", `${id}-body`);
+  todoList.appendChild(body);
+
   const h2 = document.createElement("h2");
   h2.innerText = title;
-  // <div style={backgroundColor:"white" } class="circle"></div>
+
   const cirlce = document.createElement("div");
   cirlce.setAttribute("class", "circle");
   cirlce.style.backgroundColor = color;
-  // <p class="count"></p>
+
   const para = document.createElement("p");
   para.setAttribute("class", "count");
   para.innerText = count;
+
   titleDiv.appendChild(cirlce);
   titleDiv.appendChild(h2);
   titleDiv.appendChild(para);
 
   taskContainer2.appendChild(todoList);
 
-  // todoData.forEach((item) => {
-  //   todoList.appendChild(
-  //     listdata(item.text, item.pensvg, item.trashsvg, `#${id}`)
-  //   );
-  // });
-
   const stateTasks = todoData.filter((item) => item.state === id);
   stateTasks.forEach((item) => {
-    const listItem = listdata(item.text, item.pensvg, item.trashsvg);
-    todoList.appendChild(listItem);
+    const listItem = generateItem(item.text, item.pensvg, item.trashsvg);
+    body.appendChild(listItem);
   });
   return todoList;
 }
 
-function listdata(text, pensvg, trashsvg) {
+function generateItem(text, pensvg, trashsvg) {
   const list = document.createElement("div");
   list.setAttribute("class", "listItem");
   const textdiv = document.createElement("p");
@@ -171,4 +144,26 @@ function listdata(text, pensvg, trashsvg) {
 
 containerItems.forEach(({ title, count, id, color }) => {
   addTaskList(title, color, count, id);
+});
+
+input.addEventListener("change", (e) => {
+  console.log("onchange", e.target.value);
+});
+button.addEventListener("click", () => {
+  console.log(input.value);
+  if (input.value) {
+    todoData.push({
+      text: input.value,
+      pensvg: "./pen.svg",
+      trashsvg: "./trash.svg",
+      state: "todo",
+    });
+    const todoDiv = document.getElementById("todo-body");
+    todoDiv.innerHTML = null;
+    todoData.map((item) => {
+      const itemDiv = generateItem(item.text, item.pensvg, item.trashsvg);
+      todoDiv.appendChild(itemDiv);
+    });
+    input.value = null;
+  }
 });
