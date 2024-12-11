@@ -53,23 +53,40 @@ const containerItems = [
 
 const todoData = [
   {
-    text: "[loan-managament] - Add card component",
+    text: input.value,
     pensvg: "./pen.svg",
     trashsvg: "./trash.svg",
+    state: "todo",
   },
-  ,
-  {
-    text: "[loan-managament] - Add card component",
-    pensvg: "./pen.svg",
-    trashsvg: "./trash.svg",
-  },
-  ,
-  {
-    text: "[loan-managament] - Add card component",
-    pensvg: "./pen.svg",
-    trashsvg: "./trash.svg",
-  },
+  // ,
+  // {
+  //   text: "geree tseverleh",
+  //   pensvg: "./pen.svg",
+  //   trashsvg: "./trash.svg",
+  //   state: "in-progress",
+  // },
+  // ,
+  // {
+  //   text: " ugluu sereh",
+  //   pensvg: "./pen.svg",
+  //   trashsvg: "./trash.svg",
+  //   state: "done",
+  // },
+  // {
+  //   text: "kio uzeh",
+  //   pensvg: "./pen.svg",
+  //   trashsvg: "./trash.svg",
+  //   state: "blocked",
+  // },
 ];
+
+const taskdiv = document.getElementById("addTask");
+const input = document.createElement("input");
+taskdiv.appendChild(input);
+
+const button = document.createElement("button");
+button.innerText = "Add Task";
+taskdiv.appendChild(button);
 
 function addTaskList(title, color, count, id) {
   //html div iig bariad avsan
@@ -101,23 +118,44 @@ function addTaskList(title, color, count, id) {
 
   taskContainer2.appendChild(todoList);
 
-  todoData.forEach((item) => {
-    todoList.appendChild(
-      listdata(item.text, item.pensvg, item.trashsvg, `#${id}`)
-    );
-  });
+  // todoData.forEach((item) => {
+  //   todoList.appendChild(
+  //     listdata(item.text, item.pensvg, item.trashsvg, `#${id}`)
+  //   );
+  // });
 
+  const stateTasks = todoData.filter((item) => item.state === id);
+  stateTasks.forEach((item) => {
+    const listItem = listdata(item.text, item.pensvg, item.trashsvg);
+    todoList.appendChild(listItem);
+  });
   return todoList;
 }
 
-function listdata(text, pensvg, trashsvg, selectedContainerId) {
-  const taskContainer2 = document.querySelector(selectedContainerId);
+function listdata(text, pensvg, trashsvg) {
   const list = document.createElement("div");
   list.setAttribute("class", "listItem");
   const textdiv = document.createElement("p");
   textdiv.innerText = text;
+  const selectdiv = document.createElement("select");
+  selectdiv.setAttribute("name", "selectname");
+  selectdiv.setAttribute("id", "selectId");
+
+  const optiondiv = document.createElement("option");
+  optiondiv.setAttribute("value", "todo");
+  selectdiv.appendChild(optiondiv);
+  const optiondiv2 = document.createElement("option");
+  optiondiv2.setAttribute("value", "in-progress");
+  selectdiv.appendChild(optiondiv2);
+  const optiondiv3 = document.createElement("option");
+  optiondiv3.setAttribute("value", "done");
+  selectdiv.appendChild(optiondiv3);
+  const optiondiv4 = document.createElement("option");
+  optiondiv4.setAttribute("value", "blocked");
+  selectdiv.appendChild(optiondiv4);
+
+  list.appendChild(selectdiv);
   list.appendChild(textdiv);
-  taskContainer2.appendChild(list);
   const svgdiv = document.createElement("div");
   svgdiv.setAttribute("class", "svg");
   list.appendChild(svgdiv);
@@ -127,6 +165,7 @@ function listdata(text, pensvg, trashsvg, selectedContainerId) {
   const trashsvgdiv = document.createElement("img");
   trashsvgdiv.setAttribute("src", trashsvg);
   svgdiv.appendChild(trashsvgdiv);
+
   return list;
 }
 

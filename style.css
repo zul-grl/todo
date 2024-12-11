@@ -9,13 +9,15 @@ body {
   color: #ffffff;
   padding: 30px;
 }
-.addTask {
+#addTask {
   display: flex;
-  flex-direction: row-reverse;
+  /* flex-direction: row-reverse; */
+  justify-content: flex-end;
+  gap: 20px;
   margin-bottom: 30px;
   padding-right: 40px;
 }
-.addTask button {
+#addTask button {
   width: 120px;
   height: 50px;
   background-color: green;
@@ -32,9 +34,11 @@ body {
   padding: 0 40px;
 }
 .taskContainer > div {
-  max-width: 350px;
-  aspect-ratio: 350/800;
+  max-width: 400px;
+  aspect-ratio: 400/800;
   width: 100%;
+  /* width: 20vw;
+  height: 70vh; */
   background-color: rgb(19, 19, 19);
   border-radius: 15px;
   border: 2px rgb(39, 39, 39) solid;
@@ -68,10 +72,6 @@ body {
   margin-top: 20px;
 }
 
-.listItem {
-  display: flex;
-  align-items: center;
-}
 .svg img {
   width: 17px;
   height: 17px;
@@ -83,8 +83,10 @@ body {
 .listItem {
   display: flex;
   gap: 15px;
+  align-items: center;
+  justify-content: space-between;
   background-color: rgb(25, 25, 25);
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
   margin-top: 25px;
 }
