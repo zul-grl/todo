@@ -1,4 +1,4 @@
-const containerItems = [
+containerItems = [
   {
     title: "To do",
     count: 5,
@@ -70,25 +70,8 @@ function addTaskList(title, color, count, id) {
 
   taskContainer2.appendChild(todoList);
 
-  // const stateTasks = todoData.filter((item) => item.state === item.id);
-  // stateTasks.forEach((item) => {
-  //   const listItem = generateItem(item.text, item.pensvg, item.trashsvg);
-  //   body.appendChild(listItem);
-  // });
-
-  // const stateTasks = todoData.filter((item) => item.state === id);
-  // stateTasks.forEach((item) => {
-  //   const listItem = generateItem(
-  //     item.text,
-  //     item.pensvg,
-  //     item.trashsvg,
-  //     item.index
-  //   );
-  //   body.appendChild(listItem);
-  // });
   return todoList;
 }
-
 function generateItem(text, pensvg, trashsvg, index) {
   const list = document.createElement("div");
   list.setAttribute("class", "listItem");
@@ -98,24 +81,19 @@ function generateItem(text, pensvg, trashsvg, index) {
   selectdiv.setAttribute("name", "selectname");
   selectdiv.setAttribute("id", "selectId");
   selectdiv.addEventListener("change", (event) => {
-    switchState(index, event.target.value);
+    todoData[index].state = event.target.value;
+    removeTodoItems();
   });
-  const optiondiv = document.createElement("option");
-  optiondiv.setAttribute("value", "todo");
-  optiondiv.innerText = "todo";
-  selectdiv.appendChild(optiondiv);
-  const optiondiv2 = document.createElement("option");
-  optiondiv2.innerText = "in-progress";
-  optiondiv2.setAttribute("value", "in-progress");
-  selectdiv.appendChild(optiondiv2);
-  const optiondiv3 = document.createElement("option");
-  optiondiv3.setAttribute("value", "done");
-  optiondiv3.innerText = "done";
-  selectdiv.appendChild(optiondiv3);
-  const optiondiv4 = document.createElement("option");
-  optiondiv4.innerText = "blocked";
-  optiondiv4.setAttribute("value", "blocked");
-  selectdiv.appendChild(optiondiv4);
+
+  const states = ["todo", "in-progress", "done", "blocked"];
+  states.forEach((state) => {
+    const optiondiv = document.createElement("option");
+    optiondiv.setAttribute("value", state);
+    optiondiv.innerText = state.replace("-", " ");
+    selectdiv.appendChild(optiondiv);
+  });
+
+  selectdiv.value = todoData[index].state;
 
   list.appendChild(selectdiv);
   list.appendChild(textdiv);
@@ -147,7 +125,7 @@ button.addEventListener("click", () => {
       text: input.value,
       pensvg: "./pen.svg",
       trashsvg: "./trash.svg",
-      state: "in-progress",
+      state: "todo",
     });
     removeTodoItems();
     input.value = null;
@@ -155,32 +133,26 @@ button.addEventListener("click", () => {
 });
 
 function removeTodoItems() {
-  const todoDiv = document.getElementById("todo-body");
-  todoDiv.innerHTML = null;
+  containerItems.forEach(({ id }) => {
+    const listBody = document.getElementById(`${id}-body`);
+    if (listBody) {
+      listBody.innerHTML = "";
+    }
 
-  todoData.forEach((item, index) => {
-    const itemDiv = generateItem(item.text, item.pensvg, item.trashsvg, index);
-    const trashsvgdiv = itemDiv.querySelector("#trash");
-    trashsvgdiv.addEventListener("click", () => {
-      todoData.splice(index, 1);
-      removeTodoItems();
+    const filteredTasks = todoData.filter((task) => task.state === id);
+    filteredTasks.forEach((item, index) => {
+      const itemDiv = generateItem(
+        item.text,
+        item.pensvg,
+        item.trashsvg,
+        index
+      );
+      const trashsvgdiv = itemDiv.querySelector("#trash");
+      trashsvgdiv.addEventListener("click", () => {
+        todoData.splice(index, 1);
+        removeTodoItems();
+      });
+      listBody.appendChild(itemDiv);
     });
-    todoDiv.appendChild(itemDiv);
-  });
-}
-function switchState(index, value) {
-  todoData[index].state = value;
-  console.log(todoData[index]);
-  console.log("INdex", index, value);
-  const todoDiv = document.getElementById("todo-body");
-  todoDiv.innerHTML = null;
-  todoData.forEach((item, index) => {
-    const itemDiv = generateItem(item.text, item.pensvg, item.trashsvg, index);
-    const trashsvgdiv = itemDiv.querySelector("#trash");
-    trashsvgdiv.addEventListener("click", () => {
-      todoData.splice(index, 1);
-      removeTodoItems();
-    });
-    todoDiv.appendChild(itemDiv);
   });
 }
