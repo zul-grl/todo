@@ -94,6 +94,10 @@ function generateItem(text, pensvg, trashsvg, index) {
   });
 
   selectdiv.value = todoData[index].state;
+  selectdiv.addEventListener("change", (event) => {
+    todoData[index].state = event.target.value;
+    removeTodoItems();
+  });
 
   list.appendChild(selectdiv);
   list.appendChild(textdiv);
@@ -139,17 +143,21 @@ function removeTodoItems() {
       listBody.innerHTML = "";
     }
 
-    const filteredTasks = todoData.filter((task) => task.state === id);
-    filteredTasks.forEach((item, index) => {
+    const filteredTasks = todoData.filter((task, index) => {
+      task.index = index;
+      return task.state === id;
+    });
+
+    filteredTasks.forEach((item) => {
       const itemDiv = generateItem(
         item.text,
         item.pensvg,
         item.trashsvg,
-        index
+        item.index
       );
       const trashsvgdiv = itemDiv.querySelector("#trash");
       trashsvgdiv.addEventListener("click", () => {
-        todoData.splice(index, 1);
+        todoData.splice(item.index, 1);
         removeTodoItems();
       });
       listBody.appendChild(itemDiv);
