@@ -1,32 +1,11 @@
-containerItems = [
-  {
-    title: "To do",
-    count: 5,
-    color: "white",
-    id: "todo",
-  },
-  {
-    title: "In progress",
-    count: 5,
-    color: "yellow",
-    id: "in-progress",
-  },
-  {
-    title: "Done",
-    count: 5,
-    color: "green",
-    id: "done",
-  },
-  {
-    title: "Blocked",
-    count: 5,
-    color: "red",
-    id: "blocked",
-  },
+const containerItems = [
+  { title: "To do", count: 0, color: "white", id: "todo" },
+  { title: "In progress", count: 0, color: "yellow", id: "in-progress" },
+  { title: "Done", count: 0, color: "green", id: "done" },
+  { title: "Blocked", count: 0, color: "red", id: "blocked" },
 ];
 
 const todoData = [];
-
 const taskdiv = document.getElementById("header");
 const input = document.createElement("input");
 input.setAttribute("name", "taskName");
@@ -72,11 +51,14 @@ function addTaskList(title, color, count, id) {
 
   return todoList;
 }
+
 function generateItem(text, pensvg, trashsvg, index) {
   const list = document.createElement("div");
   list.setAttribute("class", "listItem");
+
   const textdiv = document.createElement("p");
   textdiv.innerText = text;
+
   const selectdiv = document.createElement("select");
   selectdiv.setAttribute("name", "selectname");
   selectdiv.setAttribute("id", "selectId");
@@ -101,16 +83,27 @@ function generateItem(text, pensvg, trashsvg, index) {
 
   list.appendChild(selectdiv);
   list.appendChild(textdiv);
+
   const svgdiv = document.createElement("div");
   svgdiv.setAttribute("class", "svg");
   list.appendChild(svgdiv);
+
   const pensvgdiv = document.createElement("img");
   pensvgdiv.setAttribute("src", pensvg);
   svgdiv.appendChild(pensvgdiv);
+
   const trashsvgdiv = document.createElement("img");
   trashsvgdiv.setAttribute("src", trashsvg);
   trashsvgdiv.setAttribute("id", "trash");
   svgdiv.appendChild(trashsvgdiv);
+
+  pensvgdiv.addEventListener("click", () => {
+    const newText = prompt("Edit task text:", text);
+    if (newText && newText !== text) {
+      todoData[index].text = newText;
+      removeTodoItems();
+    }
+  });
 
   return list;
 }
@@ -131,6 +124,7 @@ button.addEventListener("click", () => {
       trashsvg: "./trash.svg",
       state: "todo",
     });
+
     removeTodoItems();
     input.value = null;
   }
@@ -139,6 +133,8 @@ button.addEventListener("click", () => {
 function removeTodoItems() {
   containerItems.forEach(({ id }) => {
     const listBody = document.getElementById(`${id}-body`);
+    const countElement = document.querySelector(`#${id} .count`);
+
     if (listBody) {
       listBody.innerHTML = "";
     }
@@ -162,5 +158,9 @@ function removeTodoItems() {
       });
       listBody.appendChild(itemDiv);
     });
+
+    if (countElement) {
+      countElement.innerText = filteredTasks.length;
+    }
   });
 }
