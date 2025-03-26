@@ -9,7 +9,8 @@ const todoData = [];
 const taskdiv = document.getElementById("header");
 const input = document.createElement("input");
 input.setAttribute("name", "taskName");
-input.setAttribute("type", "email");
+input.setAttribute("class", "taskName");
+input.setAttribute("type", "text");
 taskdiv.appendChild(input);
 
 const button = document.createElement("button");

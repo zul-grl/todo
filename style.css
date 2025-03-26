@@ -7,7 +7,8 @@
 body {
   background-color: rgb(24, 24, 24);
   color: #ffffff;
-  padding: 30px;
+  padding: 60px;
+  height: 100vh;
 }
 #header {
   display: flex;
@@ -19,13 +20,19 @@ body {
 #header button {
   width: 120px;
   height: 50px;
+  border-radius: 10px;
   background-color: green;
   color: white;
-  border-radius: 3px;
-  border: none;
+  border: transparent 1px solid;
   font-size: large;
 }
-
+.taskName {
+  width: 300px;
+  padding: 5px 10px;
+  outline: none;
+  border-radius: 10px;
+  border: transparent 1px solid;
+}
 .taskContainer {
   display: flex;
   gap: 30px;
